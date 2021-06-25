@@ -2,13 +2,14 @@
  Roblox game server finder made as a Python Flask API optimized using multithreading
 
 ## Requirements
-###Cookie - A Roblox cookie is required to make requests to a Roblox API
- Libraries
- - threading
- - os
- - flask
- - waitress
- - requests
+
+ ###Cookie - A Roblox cookie is required to make requests to a Roblox API
+ ###Libraries
+  - threading
+  - os
+  - flask
+  - waitress
+  - requests
 
 ## Usage
  ```python3 main.py```
