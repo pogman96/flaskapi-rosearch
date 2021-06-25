@@ -1,10 +1,10 @@
 # flaskapi-rosearch
- Roblox game server finder made as a Python Flask API optimized using multithreading
+ Roblox game server finder made as a Python Flask API optimized with multithreading
 
 ## Requirements
 
- ###Cookie - A Roblox cookie is required to make requests to a Roblox API
- ###Libraries
+ Cookies - A Roblox cookie is required to make requests to a Roblox API
+ Libraries
   - threading
   - os
   - flask
