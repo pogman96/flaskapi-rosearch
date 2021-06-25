@@ -1,0 +1,10 @@
+{
+    "cookie":"ROBLOXSECURITYCOOKIE",
+    "headshot":"https://www.roblox.com/headshot-thumbnail/json?userId=USERID&width=150&height=150&format=png",
+    "game":"https://games.roblox.com/v1/games/GAMEID/servers/Public?sortOrder=Asc&limit=100&cursor=PAGEID",
+    "usernametoid":"https://api.roblox.com/users/get-by-username?username=REPLACE",
+    "userinfo":"https://users.roblox.com/v1/users/REPLACE",
+    "presence":"https://presence.roblox.com/v1/presence/users",
+    "gametouniverse":"https://api.roblox.com/universes/get-universe-containing-place?placeid=REPLACE",
+    "universeinfo":"https://games.roblox.com/v1/games/?universeIds=REPLACE"
+}
