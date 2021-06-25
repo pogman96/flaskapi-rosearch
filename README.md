@@ -6,6 +6,7 @@
  Cookies - A Roblox cookie is required to make requests to a Roblox API
  
   Libraries
+  
   - threading
   - os
   - flask
@@ -14,7 +15,9 @@
 
 ## Usage
  ```python3 main.py```
+ 
  Navigate to localhost port 8080
+ 
  API Queries
  - Checking user/game id validity
   ```/api/v1/checkValid/<userID>/<gameID>```
