@@ -11,7 +11,7 @@ def findServer(user, game):
             data = json.load(file)
         cookies = {"cookie":data["cookie"]}
         baseLink = data["game"]
-        link = baseLink.replace("REPLACE", str(gameid), 1).replace("REPLACE", str(5000))
+        link = baseLink.replace("REPLACE", str(gameid), 1).replace("REPLACE", str(0))
         firstQuery = requests.get(link, cookies=cookies)
         firstQuery = firstQuery.json()["TotalCollectionSize"]
 
@@ -40,11 +40,11 @@ def findServer(user, game):
             if len(query["Collection"]) == 0:
                 break
 
-            if str(searchNum) in os.listdir("test/"):
+            if str(searchNum) in os.listdir("download/"):
                 pass
             else:
-                os.mkdir("test/"+str(searchNum))
-            with open("test/"+str(searchNum)+"/"+newLink.split("=")[-1]+".json", "w") as file:
+                os.mkdir("download/"+str(searchNum))
+            with open("download/"+str(searchNum)+"/"+newLink.split("=")[-1]+".json", "w") as file:
                 json.dump(query, file)
 
 
@@ -67,10 +67,10 @@ def findServer(user, game):
             if found:
                 break
             try:
-                with open("test/"+str(searchNum)+"/"+str(i)+".json", "r") as file:
+                with open("download/"+str(searchNum)+"/"+str(i)+".json", "r") as file:
                     if headshot in file.read():
                         found = True
-                        with open("test/"+str(searchNum)+"/"+str(i)+".json", "r") as file1:
+                        with open("download/"+str(searchNum)+"/"+str(i)+".json", "r") as file1:
                             data = json.load(file1)
                         stop = False
                         for k in data["Collection"]:
@@ -111,17 +111,17 @@ def findServer(user, game):
 
     def createDirectory():
         result = False
-        test = False
+        download = False
         for i in os.listdir():
             if i == "result":
                 result = True
-            elif i == "test":
-                test = True
+            elif i == "download":
+                download = True
         
         if not(result):
             os.mkdir("result")
-        if not(test):
-            os.mkdir("test")
+        if not(download):
+            os.mkdir("download")
 
     createDirectory()
 
@@ -179,5 +179,5 @@ def findServer(user, game):
         with open("result/results"+str(currSearch)+".json", "w") as file:
             json.dump(dict, file)
 
-    clearJunk("test/"+str(currSearch))
+    clearJunk("download/"+str(currSearch))
     return currSearch, headshotRequest.json()["Url"]

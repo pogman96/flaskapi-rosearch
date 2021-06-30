@@ -1,6 +1,6 @@
 import json
 import requests
-from findID import convertID
+from src.findID import convertID
 
 def getInfo(userid):
     with open("config.json") as file:
