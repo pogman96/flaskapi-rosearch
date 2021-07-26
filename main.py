@@ -1,12 +1,12 @@
 from flask import Flask, jsonify
 import json
 import requests
-from validityCheck import checkValidity
-from findServer import findServer
-from userInfo import getInfo
-from gameInfo import getGameInfo
-from findID import convertID
-from findIDpersist import deepConvertID
+from src.validityCheck import checkValidity
+from src.findServer import findServer
+from src.userInfo import getInfo
+from src.gameInfo import getGameInfo
+from src.findID import convertID
+from src.findIDpersist import deepConvertID
 from waitress import serve
 
 
