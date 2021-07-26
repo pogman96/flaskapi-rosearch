@@ -3,39 +3,32 @@ import json
 import threading
 import os
 
+
 def findServer(user, game):
 
     def getInfo(gameid):
         global firstQuery
         with open("config.json") as file:
             data = json.load(file)
-        cookies = {"cookie":data["cookie"]}
+        cookies = {"cookie": data["cookie"]}
         baseLink = data["game"]
-        link = baseLink.replace("REPLACE", str(gameid), 1).replace("REPLACE", str(0))
+        link = baseLink.replace("REPLACE", str(
+            gameid), 1).replace("REPLACE", str(0))
         firstQuery = requests.get(link, cookies=cookies)
         firstQuery = firstQuery.json()["TotalCollectionSize"]
-
-        indexList = []
-        for i in range(100):
-            tempList = []
-            counter = 0
-            while (i*10) + (1000 * counter) < firstQuery:
-                tempList.append((i*10) + (1000 * counter))
-                counter += 1
-            indexList.append(tempList)
+        indexList = [[i] for i in range(0, firstQuery, 10)]
         return indexList
-
-
 
     def downloadServer(gameid, listOfIndex, searchNum):
         with open("config.json") as file:
             data = json.load(file)
-        cookies = {"cookie":data["cookie"]}
+        cookies = {"cookie": data["cookie"]}
         baseLink = data["game"]
         if len(listOfIndex) == 0:
             return
         for i in listOfIndex:
-            newLink = baseLink.replace("REPLACE", str(gameid), 1).replace("REPLACE", str(i))
+            newLink = baseLink.replace("REPLACE", str(
+                gameid), 1).replace("REPLACE", str(i))
             query = requests.get(newLink, cookies=cookies).json()
             if len(query["Collection"]) == 0:
                 break
@@ -47,15 +40,13 @@ def findServer(user, game):
             with open("download/"+str(searchNum)+"/"+newLink.split("=")[-1]+".json", "w") as file:
                 json.dump(query, file)
 
-
     def runDownload(gameid, listOfIndexes):
-        threads  = []
+        threads = []
         for i in listOfIndexes:
-            processThread = threading.Thread(target=downloadServer, args=(gameid, i, currSearch))
+            processThread = threading.Thread(
+                target=downloadServer, args=(gameid, i, currSearch))
             threads.append(processThread)
         return threads
-
-
 
     def searchForInfo(headshot, listOfFilenames, searchNum):
         global found
@@ -83,9 +74,11 @@ def findServer(user, game):
                             for j in k["CurrentPlayers"]:
                                 if headshot in j["Thumbnail"]["Url"]:
                                     stop = True
-                                    serverAmount = str(data["TotalCollectionSize"])
+                                    serverAmount = str(
+                                        data["TotalCollectionSize"])
                                     break
-                        dict = {"In Game": True, "guid":guid, "server amount":serverAmount, "ping":ping, "players":currPlayers, "max players":maxCapacity, "searchid":int(searchNum)}
+                        dict = {"In Game": True, "guid": guid, "server amount": serverAmount, "ping": ping,
+                                "players": currPlayers, "max players": maxCapacity, "searchid": int(searchNum)}
                         with open("result/results"+str(searchNum)+".json", "w") as file:
                             json.dump(dict, file)
 
@@ -95,12 +88,11 @@ def findServer(user, game):
             except:
                 break
 
-
-
     def runSearch(headshot, listOfIndexes):
         threads = []
         for i in listOfIndexes:
-            processThread = threading.Thread(target=searchForInfo, args=(headshot, i, currSearch))
+            processThread = threading.Thread(
+                target=searchForInfo, args=(headshot, i, currSearch))
             threads.append(processThread)
         return threads
 
@@ -117,7 +109,7 @@ def findServer(user, game):
                 result = True
             elif i == "download":
                 download = True
-        
+
         if not(result):
             os.mkdir("result")
         if not(download):
@@ -136,7 +128,6 @@ def findServer(user, game):
     global currSearch
     currSearch = searchdata["searchnum"]
 
-
     searchdata["searchnum"] += 1
 
     with open("search.json", "w") as file:
@@ -154,7 +145,6 @@ def findServer(user, game):
     elif headshotRequest.json()["Url"] == "https://t4.rbxcdn.com/b561617d22628c1d01dd10f02e80c384":
         return "error"
     headshotid = headshotRequest.json()["Url"].split("/")[3]
-
 
     searchThreads = runSearch(headshotid, lists)
 
@@ -175,7 +165,8 @@ def findServer(user, game):
 
     print(found)
     if not(found):
-        dict = {"In Game": False, "server amount":firstQuery, "searchid":int(currSearch)}
+        dict = {"In Game": False, "server amount": firstQuery,
+                "searchid": int(currSearch)}
         with open("result/results"+str(currSearch)+".json", "w") as file:
             json.dump(dict, file)
 
