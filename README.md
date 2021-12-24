@@ -27,3 +27,5 @@
   ```/api/v1/checkUserDeep/<username>```
   - GUID searcher
   ```/api/v1/findUser/<userID>/<gameID>```
+## Todo
+ Update api to query system
